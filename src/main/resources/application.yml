@@ -1,0 +1,56 @@
+log:
+  level: debug
+  color: true
+
+server:
+  port: 8080
+
+spring:
+  cloud:
+    circuitbreaker:
+      resilience4j:
+        enabled: true
+  main:
+    allow-bean-definition-overriding: true
+    banner-mode: off
+  output:
+    ansi:
+      enabled: ALWAYS
+  application:
+    name: quorum
+    version: 1.0.0
+    swagger:
+      title: ${spring.application.name}
+      description: Documentation
+      terms-of-service-url: https://github.com/italo-gouveia/
+      license: private
+      license-url: https://github.com/italo-gouveia/
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    enabled: true
+    patch: /swagger-ui.html
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+resilience4j:
+  circuitBreakerConfig:
+    failureRateThreshold: 50
+    waitDurationInOpenState: 1000
+    slidingWindowSize: 2
+  timeLimiterConfig:
+    timeoutInMilliseconds: 30000
+
+cors:
+  request:
+    local: http://localhost
